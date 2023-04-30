@@ -9,19 +9,18 @@
 <body>
     <div class="container">
         <div class="title">Vanish Vault</div>
-        <textarea placeholder="请输入要加密分享的数据" class="content mao-input"></textarea>
+        <textarea id="content" placeholder="请输入要加密分享的数据" class="content mao-input"></textarea>
         <div class="content-bar">
             <select title="有效时间" class="content-bar-option mao-input">
-                <option>1 分钟</option>
                 <option>5 分钟</option>
                 <option>10 分钟</option>
                 <option>30 分钟</option>
                 <option>60 分钟</option>
             </select>
             <div class="content-bar-input">
-                <input placeholder="这里输入 key" class="mao-input content-bar-input-inner" />
+                <input id="key" placeholder="这里输入 key" class="mao-input content-bar-input-inner" />
             </div>
-            <div class="content-bar-button">生成</div>
+            <button id="submit" class="content-bar-button">生成</button>
         </div>
         <div class="footer">
             <!-- 这里写版权的东西, mao 开发的，有 github 链接 -->
@@ -30,6 +29,45 @@
         </div>
     </div>
 </body>
+
+<script>
+    (() => {
+        const $content = document.getElementById('content');
+        const $key = document.getElementById('key');
+        const $submit = document.getElementById('submit');
+
+        const createInput = (name, value, type) => {
+            const input = document.createElement('input');
+            input.type = type || 'text';
+            input.name = name;
+            input.value = value;
+            return input;
+        }
+
+        $submit.addEventListener('click', (e) => {
+            let content = $content.value;
+            let key = $key.value.trim();
+            if (!content || !key || !content.trim()) {
+                alert('请输入内容和 key');
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.action = '/share';
+            form.method = 'POST';
+
+            const contentInput = createInput('content', content);
+            const keyInput = createInput('key', key);
+
+            form.appendChild(contentInput);
+            form.appendChild(keyInput);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        })
+    })();
+</script>
 
 <style>
     * {
