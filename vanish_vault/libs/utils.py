@@ -5,6 +5,8 @@ import base64
 import os
 import hashlib
 
+from vanish_vault.libs.redis_utils import rclient
+
 mode = AES.MODE_CBC
 
 
@@ -28,6 +30,12 @@ def decrypt(ciphertext, key):
 BASE = 62
 # 打乱的 62 个字符
 CHARS = "aTJ7s2hC98GifUoZDNd6LzBQmEv0MlkXKb5y4OjWxYRtPnwrVpqF1Igu3eAS0"
+# CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+
+def random_str(n):
+    import random
+    return ''.join([random.choice(CHARS) for i in range(n)])
 
 
 def to_base62(num):
@@ -39,3 +47,9 @@ def to_base62(num):
         num, rem = divmod(num, BASE)
         result.append(CHARS[rem])
     return "".join(result[::-1])
+
+
+def get_next_id():
+    from vanish_vault.libs.redis_utils import rclient
+    redis_next_id = to_base62(rclient.get_next_id())
+    return f'{redis_next_id}{random_str(2)}'

@@ -1,5 +1,7 @@
 from flask import Flask
 
+from vanish_vault.libs.redis_utils import rclient
+
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
@@ -7,6 +9,7 @@ def create_app():
     app.config.from_object('vanish_vault.config.setting')
 
     register_blueprint(app)
+    rclient.init_app(app)
     return app
 
 

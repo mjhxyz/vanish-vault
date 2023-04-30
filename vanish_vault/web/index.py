@@ -22,4 +22,5 @@ def share_handler():
     content = request.form.get('content')
     key = request.form.get('key')
     msg = utils.encrypt(content, key)
-    return redirect(f'/share/{key}')
+    next_id = utils.get_next_id()
+    return redirect(f'/share/{next_id}')
