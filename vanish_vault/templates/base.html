@@ -10,11 +10,16 @@
     <div class="container">
         <div class="title">Vanish Vault</div>
         {% block body %}{% endblock %}
+        <div class="footer">
+            <!-- 这里写版权的东西, mao 开发的，有 github 链接 -->
+            <a href="/">首页</a>
+            <span>© 2023 Mao</span>
+            <a href="https://github.com/mjhxyz/vanish-vault" target="_blank">Github</a>
+        </div>
     </div>
 </body>
 
-<script>
-</script>
+{% block script %}{% endblock %}
 
 <style>
     * {
@@ -38,6 +43,7 @@
         max-height: 100vh;
         background-color: #f2f2f2;
         font-family: Arial, sans-serif;
+        justify-content: space-between;
     }
 
     .title {
@@ -79,6 +85,77 @@
     ::-moz-scrollbar-thumb:hover {
         background-color: #b3b3b3;
     }
+
+    .footer {
+        height: 30px;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #dcdcdc;
+        color: #666666;
+        font-size: 13px;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .mao-input {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 4px;
+        outline: none;
+        resize: none;
+        box-shadow: none;
+    }
+
+    .mao-input:focus {
+        border: 1px solid #41b883;
+        box-shadow: 0 0 4px #41b883;
+    }
+
+    .btn:hover {
+        background-color: #3daa91;
+    }
+
+    .btn:active {
+        background-color: #2c7a6c;
+    }
+
+    .btn {
+        width: 80px;
+        height: 40px;
+        border: none;
+        border-radius: 4px;
+        background-color: #41b883;
+        color: #ffffff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .error {
+        color: #e74c3c;
+    }
+
+    .flex-1 {
+        flex: 1;
+    }
+
+    .m-l-10 {
+        margin-left: 10px;
+    }
+
+    .danger-area {
+        margin-top: 10px;
+
+        border: 1px solid #e74c3c;
+        color: #e74c3c;
+        border-radius: 3px;
+        border-left: 8px solid #e74c3c;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
 </style>
+{% block style %}{% endblock %}
 
 </html>

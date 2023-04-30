@@ -26,3 +26,7 @@ class RedisClient:
 
 
 rclient = RedisClient()
+
+
+def get_redis():
+    return rclient.get_redis()

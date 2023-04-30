@@ -49,6 +49,25 @@ def to_base62(num):
     return "".join(result[::-1])
 
 
+def is_id_exist(id):
+    from vanish_vault.libs.redis_utils import rclient
+    app = rclient.app
+    prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
+    client = rclient.get_redis()
+    return client.exists(f'{prefix}{id}')
+
+
+def get_decrypted_content(id, key):
+    from vanish_vault.libs.redis_utils import rclient
+    app = rclient.app
+    prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
+    client = rclient.get_redis()
+    encrypted_content = client.get(f'{prefix}{id}')
+    if not encrypted_content:
+        return None
+    return decrypt(encrypted_content, key)
+
+
 def get_next_id():
     from vanish_vault.libs.redis_utils import rclient
     redis_next_id = to_base62(rclient.get_next_id())

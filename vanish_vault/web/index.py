@@ -13,7 +13,10 @@ def index_handler():
 @index.get('/share/<id>')
 def share_hanlder_get(id):
     # TODO check id 是否存在
-    return render_template('share_result.html', id=id)
+    context = {'id': id}
+    if not utils.is_id_exist(id):
+        context['error'] = '消息不存在!!'
+    return render_template('share_result.html', **context)
 
 
 @index.post('/share')

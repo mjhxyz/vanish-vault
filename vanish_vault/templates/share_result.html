@@ -1,5 +1,54 @@
 {% extends "base.html" %}
 {% block title %} Share Result{% endblock %}
 {% block body%}
-{{ id }}
+<div class="result-container">
+    {% if error %}
+    <div class="error-content error">{{error}}</div>
+    {% else %}
+    <div class="danger-area">
+        <p>一旦被访问，内容将会立即销毁，无法恢复。</p>
+        <p>如果你需要再次访问这些信息，请先将数据复制到另外一个安全的地方。</p>
+        <p>-</p>
+        <p>你即将访问: 【{{id}}】 </p>
+    </div>
+    <div class="result-input">
+        <input placeholder="请输入密码" class="mao-input flex-1" />
+        <button class="btn m-l-10">确认访问</button>
+        <button id="copy2clipboard" class="btn m-l-10">复制链接</button>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block script%}
+<script>
+    (() => {
+        const $copybtn = document.getElementById('copy2clipboard');
+        $copybtn.addEventListener('click', (e) => {
+            const input = document.createElement('input');
+            input.value = window.location.href;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            alert('已复制到剪切板');
+        })
+    })()
+</script>
+{% endblock %}
+
+{% block style%}
+<style>
+    .result-container {
+        background-color: #fff;
+        padding: 20px;
+        flex: 1;
+    }
+
+    .result-input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+</style>
 {% endblock %}
