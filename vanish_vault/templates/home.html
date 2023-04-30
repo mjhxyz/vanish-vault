@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vanish Vault</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Vanish Vault</div>
+        <textarea class="content mao-input">sdf</textarea>
+        <div class="content-bar">
+            <select class="content-bar-option mao-input">
+                <option>1 分钟</option>
+                <option>5 分钟</option>
+                <option>10 分钟</option>
+                <option>30 分钟</option>
+                <option>60 分钟</option>
+            </select>
+            <div class="content-bar-input">
+                <span class="content-bar-input-lable">key:</span>
+                <input class="mao-input content-bar-input-inner" />
+            </div>
+            <div class="content-bar-button">生成</div>
+        </div>
+    </div>
+</body>
+
+<style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        background-color: #eeeeee;
+    }
+
+    .content-bar-option {
+        width: 100px;
+        display: block;
+    }
+
+    .mao-input {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 4px;
+        outline: none;
+        resize: none;
+        box-shadow: none;
+    }
+
+    .container {
+        width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        max-height: 100vh;
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #35495e;
+        padding: 20px;
+        border-bottom: 1px solid #dcdcdc;
+    }
+
+    /* WebKit browsers */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+        background-color: #f5f5f5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #dcdcdc;
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #b3b3b3;
+    }
+
+    /* Firefox */
+    ::-moz-scrollbar {
+        width: 10px;
+        height: 10px;
+        background-color: #f5f5f5;
+    }
+
+    ::-moz-scrollbar-thumb {
+        background-color: #dcdcdc;
+        border-radius: 5px;
+    }
+
+    ::-moz-scrollbar-thumb:hover {
+        background-color: #b3b3b3;
+    }
+
+    .mao-input:focus {
+        border: 1px solid #41b883;
+        box-shadow: 0 0 4px #41b883;
+    }
+
+    .content {
+        height: 500px;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .content-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        background-color: #ffffff;
+        border-top: 1px solid #dcdcdc;
+        padding: 0 20px;
+    }
+
+    .content-bar-input-lable {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    .content-bar-input-inner {
+        flex: 1;
+        display: block;
+    }
+
+    .content-bar-input {
+        flex: 1;
+        margin: 0 20px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+
+    .content-bar-button:hover {
+        background-color: #3daa91;
+    }
+
+    .content-bar-button:active {
+        background-color: #2c7a6c;
+    }
+
+    .content-bar-button {
+        width: 80px;
+        height: 40px;
+        border: none;
+        border-radius: 4px;
+        background-color: #41b883;
+        color: #ffffff;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+</html>
