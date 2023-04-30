@@ -29,7 +29,7 @@ def decrypt(ciphertext, key):
 
 BASE = 62
 # 打乱的 62 个字符
-CHARS = "aTJ7s2hC98GifUoZDNd6LzBQmEv0MlkXKb5y4OjWxYRtPnwrVpqF1Igu3eAS0"
+CHARS = "LWVqiarAS7bnHv2olf9d1Jeh6QYNmPRyksz3KBGU4xcEp0jItCXOgTuZwF5D8M"
 # CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 
@@ -65,7 +65,10 @@ def get_decrypted_content(id, key):
     encrypted_content = client.get(f'{prefix}{id}')
     if not encrypted_content:
         return None
-    return decrypt(encrypted_content, key)
+    try:
+        return decrypt(encrypted_content, key)
+    except Exception:
+        return None
 
 
 def get_next_id():

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %} Share Result{% endblock %}
+{% block body%}
+<div class="result-container">
+    {% if error %}
+    <div class="error-content error">{{error}}</div>
+    {% else %}
+    <div class="result-input">
+        <button id="copy2clipboard" class="btn">复制内容</button>
+    </div>
+    <textarea readonly class="result-content content mao-input" id="content"></textarea>
+    {% endif %}
+</div>
+{% endblock %}
+{% block script%}
+<script>
+    (() => {
+        const $copybtn = document.getElementById('copy2clipboard');
+        const $content = document.getElementById('content');
+        const content = `{{content|replace("__BR__", "\n")}}`
+
+        $content.innerHTML = content
+
+        $copybtn.addEventListener('click', (e) => {
+            const input = document.createElement('textarea');
+            input.value = content;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            alert('已复制到剪切板');
+        })
+    })()
+</script>
+{% endblock %}
+
+{% block style%}
+<style>
+    .result-content {
+        width: 100%;
+        padding: 10px;
+        height: 500px;
+        border: 1px solid #eee;
+        margin-top: 10px;
+    }
+
+    .result-container {
+        background-color: #fff;
+        padding: 20px;
+        flex: 1;
+    }
+
+    .result-input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+</style>
+{% endblock %}

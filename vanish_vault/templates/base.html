@@ -19,6 +19,15 @@
     </div>
 </body>
 
+<script>
+    const createInput = (name, value, type) => {
+        const input = document.createElement('input');
+        input.type = type || 'text';
+        input.name = name;
+        input.value = value;
+        return input;
+    }
+</script>
 {% block script %}{% endblock %}
 
 <style>
@@ -148,12 +157,22 @@
         margin-top: 10px;
 
         border: 1px solid #e74c3c;
-        color: #e74c3c;
+        /* color: #e74c3c; */
         border-radius: 3px;
         border-left: 8px solid #e74c3c;
         padding: 10px;
         margin-bottom: 10px;
         font-size: 14px;
+    }
+
+    .content {
+        height: 500px;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        overflow-y: auto;
     }
 </style>
 {% block style %}{% endblock %}

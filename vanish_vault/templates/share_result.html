@@ -5,15 +5,22 @@
     {% if error %}
     <div class="error-content error">{{error}}</div>
     {% else %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="error">
+    {{messages[0][1]}}
+    </div>
+    {% endif %}
+    {% endwith %}
     <div class="danger-area">
         <p>一旦被访问，内容将会立即销毁，无法恢复。</p>
         <p>如果你需要再次访问这些信息，请先将数据复制到另外一个安全的地方。</p>
         <p>-</p>
-        <p>你即将访问: 【{{id}}】 </p>
+        <p>你即将访问: <strong>【{{id}}】</strong></p>
     </div>
     <div class="result-input">
-        <input placeholder="请输入密码" class="mao-input flex-1" />
-        <button class="btn m-l-10">确认访问</button>
+        <input id="key" placeholder="请输入密码" class="mao-input flex-1" />
+        <button id="commit" class="btn m-l-10">确认访问</button>
         <button id="copy2clipboard" class="btn m-l-10">复制链接</button>
     </div>
     {% endif %}
@@ -22,7 +29,10 @@
 {% block script%}
 <script>
     (() => {
+        const $commit = document.getElementById('commit');
         const $copybtn = document.getElementById('copy2clipboard');
+        const $key = document.getElementById('key');
+
         $copybtn.addEventListener('click', (e) => {
             const input = document.createElement('input');
             input.value = window.location.href;
@@ -31,6 +41,27 @@
             document.execCommand('copy');
             document.body.removeChild(input);
             alert('已复制到剪切板');
+        })
+
+        $commit.addEventListener('click', (e) => {
+            const key = $key.value.trim();
+            if (!key) {
+                alert('请输入密码');
+                return;
+            }
+            const form = document.createElement('form');
+            form.action = '/detail';
+            form.method = 'POST';
+
+            const keyInput = createInput('key', key);
+            const idInput = createInput('id', '{{id}}');
+
+            form.appendChild(keyInput);
+            form.appendChild(idInput);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         })
     })()
 </script>

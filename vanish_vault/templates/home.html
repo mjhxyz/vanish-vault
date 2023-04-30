@@ -51,6 +51,7 @@
                 alert('请输入内容和密码');
                 return;
             }
+            content = content.replace(/\n/g, '__BR__');
 
             const form = document.createElement('form');
             form.action = '/share';
