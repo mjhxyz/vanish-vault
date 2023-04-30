@@ -57,6 +57,14 @@ def is_id_exist(id):
     return client.exists(f'{prefix}{id}')
 
 
+def delete_content(id):
+    from vanish_vault.libs.redis_utils import rclient
+    app = rclient.app
+    prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
+    client = rclient.get_redis()
+    return client.delete(f'{prefix}{id}')
+
+
 def get_decrypted_content(id, key):
     from vanish_vault.libs.redis_utils import rclient
     app = rclient.app

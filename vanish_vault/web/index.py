@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for
+from flask import Blueprint, render_template, request, redirect, flash, url_for, current_app
 
 from vanish_vault.libs import utils
 
@@ -7,7 +7,10 @@ index = Blueprint('index', __name__)
 
 @index.get('/')
 def index_handler():
-    return render_template('home.html')
+    context = {
+        'valid_time_minutes': current_app.config['VALIDE_TIME_MINUTES']
+    }
+    return render_template('home.html', **context)
 
 
 @index.post('/detail')
@@ -21,6 +24,7 @@ def detail_handler():
         return redirect(url_for('index.share_hanlder_get', id=id))
     else:
         context = {'id': id, 'content': content}
+        utils.delete_content(id)
 
     return render_template('detail.html', **context)
 
@@ -39,5 +43,6 @@ def share_handler():
     # TODO form check
     content = request.form.get('content')
     key = request.form.get('key')
-    next_id = utils.save_content(content, key)
+    valid_time = request.form.get('valid_time')
+    next_id = utils.save_content(content, key, int(valid_time) * 60)
     return redirect(f'/share/{next_id}')

@@ -11,11 +11,10 @@
         <div class="title">Vanish Vault</div>
         <textarea id="content" placeholder="请输入要加密分享的数据" class="content mao-input"></textarea>
         <div class="content-bar">
-            <select title="有效时间" class="content-bar-option mao-input">
-                <option>5 分钟</option>
-                <option>10 分钟</option>
-                <option>30 分钟</option>
-                <option>60 分钟</option>
+            <select id="valid_time" title="有效时间" class="content-bar-option mao-input">
+                {% for time in valid_time_minutes %}
+                <option value="{{ time }}">{{ time }} 分钟</option>
+                {% endfor %}
             </select>
             <div class="content-bar-input">
                 <input id="key" placeholder="这里输入密码" class="mao-input content-bar-input-inner" />
@@ -35,6 +34,7 @@
         const $content = document.getElementById('content');
         const $key = document.getElementById('key');
         const $submit = document.getElementById('submit');
+        const $validTime = document.getElementById('valid_time');
 
         const createInput = (name, value, type) => {
             const input = document.createElement('input');
@@ -59,9 +59,11 @@
 
             const contentInput = createInput('content', content);
             const keyInput = createInput('key', key);
+            const validTimeInput = createInput('valid_time', $validTime.value);
 
             form.appendChild(contentInput);
             form.appendChild(keyInput);
+            form.appendChild(validTimeInput);
 
             document.body.appendChild(form);
             form.submit();
