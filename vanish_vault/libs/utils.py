@@ -53,3 +53,14 @@ def get_next_id():
     from vanish_vault.libs.redis_utils import rclient
     redis_next_id = to_base62(rclient.get_next_id())
     return f'{redis_next_id}{random_str(2)}'
+
+
+def save_content(content, key, expire=10 * 60):
+    from vanish_vault.libs.redis_utils import rclient
+    app = rclient.app
+    encrypted_content = encrypt(content, key)
+    prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
+    next_id = get_next_id()
+    client = rclient.get_redis()
+    client.setex(f'{prefix}{next_id}', expire, encrypted_content)
+    return next_id

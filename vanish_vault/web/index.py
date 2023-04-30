@@ -21,6 +21,6 @@ def share_handler():
     # TODO form check
     content = request.form.get('content')
     key = request.form.get('key')
-    msg = utils.encrypt(content, key)
-    next_id = utils.get_next_id()
+    encrypted_content = utils.encrypt(content, key)
+    next_id = utils.save_content(encrypted_content, key)
     return redirect(f'/share/{next_id}')
