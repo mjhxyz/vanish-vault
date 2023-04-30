@@ -18,7 +18,7 @@
                 <option>60 分钟</option>
             </select>
             <div class="content-bar-input">
-                <input id="key" placeholder="这里输入 key" class="mao-input content-bar-input-inner" />
+                <input id="key" placeholder="这里输入密码" class="mao-input content-bar-input-inner" />
             </div>
             <button id="submit" class="content-bar-button">生成</button>
         </div>
@@ -48,7 +48,7 @@
             let content = $content.value;
             let key = $key.value.trim();
             if (!content || !key || !content.trim()) {
-                alert('请输入内容和 key');
+                alert('请输入内容和密码');
                 return;
             }
 

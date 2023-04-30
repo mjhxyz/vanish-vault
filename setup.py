@@ -13,6 +13,7 @@ setup(
     install_requires=[
         'Flask>=2.2.3',
         'PyCryptodome>=3.10',
+        'redis>=4.5.4',
     ],
     entry_points={
     },
