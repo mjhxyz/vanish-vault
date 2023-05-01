@@ -8,7 +8,9 @@
 
 <body>
     <div class="container">
-        <div class="title">Vanish Vault</div>
+        <div class="title">
+            <a class="title-a" href="{{url_for('index.index_handler')}}">Vanish Vault</a>
+        </div>
         {% block body %}{% endblock %}
         <div class="footer">
             <!-- 这里写版权的东西, mao 开发的，有 github 链接 -->
@@ -42,6 +44,11 @@
         width: 100%;
         height: 100%;
         background-color: #eeeeee;
+    }
+
+    .title-a {
+        text-decoration: none;
+        color: #35495e;
     }
 
     .container {
