@@ -8,12 +8,29 @@
 
 <body>
     <div class="container">
-        <div class="title">
-            <a class="title-a" href="{{url_for('index.index_handler')}}">Vanish Vault</a>
+        <div class="nav">
+            <div class="nav-logo">Vanish Vault</div>
+            <div class="nav-btn-group">
+                <!-- <button class="nav-btn">登录</button>
+                <button class="nav-btn">注册</button> -->
+            </div>
         </div>
-        {% block body %}{% endblock %}
+        <!-- <div class="title">
+            <a class="title-a" href="{{url_for('index.index_handler')}}">Vanish Vault</a>
+        </div> -->
+        <div class="sub-nav">
+            <div class="sub-nav-body">
+                <div class="sub-nav-title">{{ self.title() }}</div>
+                <div class="sub-nav-tab-group">
+                    <a class="sub-nav-tab" href="{{url_for('index.index_handler')}}">首页</a>
+                    <a class="sub-nav-tab" target="_blank" href="https://github.com/mjhxyz/vanish-vault">Github</a>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            {% block body %}{% endblock %}
+        </div>
         <div class="footer">
-            <!-- 这里写版权的东西, mao 开发的，有 github 链接 -->
             <a href="/">首页</a>
             <span>© 2023 Mao</span>
             <a href="https://github.com/mjhxyz/vanish-vault" target="_blank">Github</a>
@@ -46,13 +63,115 @@
         background-color: #eeeeee;
     }
 
+    .sub-nav {
+        height: 50px;
+        background-color: #fff;
+        padding: 0 20px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+    }
+
+    .sub-nav-tab-group {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .sub-nav-tab {
+        padding: 0 10px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        transition: all .3s;
+        font-size: 16px;
+        text-decoration: none;
+        color: #35495e;
+    }
+
+    .sub-nav-tab:hover {
+        border-bottom: 2px solid #35495e;
+        color: #35495e;
+    }
+
+    .sub-nav-body {
+        width: 1000px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        justify-content: space-between;
+    }
+
+    .sub-nav-title {
+        font-size: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .nav {
+        height: 50px;
+        background-color: #35495e;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .nav-logo {
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px;
+    }
+
+    .nav-center {
+        width: 1000px;
+    }
+
+    .nav-btn-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        width: 180px;
+    }
+
+    .nav-btn {
+        background-color: #35495e;
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        width: 60px;
+        height: 30px;
+    }
+
+    .nav-btn:hover {
+        background-color: #3e5369;
+        color: #fff;
+    }
+
+    .nav-btn:active {
+        background-color: #35495e;
+        color: #fff;
+    }
+
+    .body {
+        width: 1000px;
+        margin: 0 auto;
+        flex: 1;
+    }
+
     .title-a {
         text-decoration: none;
         color: #35495e;
     }
 
     .container {
-        width: 600px;
+        width: 100%;
+        height: 100%;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
