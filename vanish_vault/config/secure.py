@@ -3,4 +3,4 @@ REDIS = {
     'port': 6379,
     'db': 0,
 }
-SECRET_KEY = 'vanish_vault'
+SECRET_KEY = 'F93297D4BE70451094C3C8D989EC8EFA'
