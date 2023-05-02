@@ -1,34 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Vanish Vault</title>
-</head>
-
-<body>
-    <div class="container">
-        <div class="title">Vanish Vault</div>
-        <textarea id="content" placeholder="请输入要加密分享的数据" class="content mao-input"></textarea>
-        <div class="content-bar">
-            <select id="valid_time" title="有效时间" class="content-bar-option mao-input">
-                {% for time in valid_time_minutes %}
-                <option value="{{ time }}">{{ time }} 分钟</option>
-                {% endfor %}
-            </select>
-            <div class="content-bar-input">
-                <input id="key" placeholder="这里输入密码" class="mao-input content-bar-input-inner" />
-            </div>
-            <button id="submit" class="content-bar-button">生成</button>
-        </div>
-        <div class="footer">
-            <!-- 这里写版权的东西, mao 开发的，有 github 链接 -->
-            <span>© 2023 Mao</span>
-            <a href="https://github.com/mjhxyz/vanish-vault" target="_blank">Github</a>
-        </div>
+{% extends "base.html" %}
+{% block title %} Home{% endblock %}
+{% block body%}
+<textarea id="content" placeholder="请输入要加密分享的数据" class="content mao-input"></textarea>
+<div class="content-bar">
+    <select id="valid_time" title="有效时间" class="content-bar-option mao-input">
+        {% for time in valid_time_minutes %}
+        <option value="{{ time }}">{{ time }} 分钟</option>
+        {% endfor %}
+    </select>
+    <div class="content-bar-input">
+        <input id="key" placeholder="这里输入密码" class="mao-input content-bar-input-inner" />
     </div>
-</body>
+    <button id="submit" class="btn">生成</button>
+</div>
 
+{% endblock %}
+
+{% block script%}
 <script>
     (() => {
         const $content = document.getElementById('content');
@@ -71,101 +59,14 @@
         })
     })();
 </script>
+{% endblock %}
+
+{% block style%}
 
 <style>
-    * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-    }
-
-    html,
-    body {
-        width: 100%;
-        height: 100%;
-        background-color: #eeeeee;
-    }
-
     .content-bar-option {
         width: 100px;
         display: block;
-    }
-
-    .footer {
-        height: 30px;
-        width: 100%;
-        background-color: #fff;
-        border-top: 1px solid #dcdcdc;
-        color: #666666;
-        font-size: 13px;
-        text-align: center;
-        line-height: 30px;
-    }
-
-    .mao-input {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        padding: 10px;
-        border: 1px solid #dcdcdc;
-        border-radius: 4px;
-        outline: none;
-        resize: none;
-        box-shadow: none;
-    }
-
-    .container {
-        width: 600px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        max-height: 100vh;
-        background-color: #f2f2f2;
-        font-family: Arial, sans-serif;
-    }
-
-    .title {
-        font-size: 28px;
-        font-weight: bold;
-        color: #35495e;
-        padding: 20px;
-        border-bottom: 1px solid #dcdcdc;
-    }
-
-    /* WebKit browsers */
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-        background-color: #f5f5f5;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: #dcdcdc;
-        border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: #b3b3b3;
-    }
-
-    /* Firefox */
-    ::-moz-scrollbar {
-        width: 10px;
-        height: 10px;
-        background-color: #f5f5f5;
-    }
-
-    ::-moz-scrollbar-thumb {
-        background-color: #dcdcdc;
-        border-radius: 5px;
-    }
-
-    ::-moz-scrollbar-thumb:hover {
-        background-color: #b3b3b3;
-    }
-
-    .mao-input:focus {
-        border: 1px solid #41b883;
-        box-shadow: 0 0 4px #41b883;
     }
 
     .content {
@@ -207,34 +108,5 @@
         display: flex;
         align-items: center;
     }
-
-    .content-bar-button:hover {
-        background-color: #3daa91;
-    }
-
-    .content-bar-button:active {
-        background-color: #2c7a6c;
-    }
-
-    .content-bar-button {
-        width: 80px;
-        height: 40px;
-        border: none;
-        border-radius: 4px;
-        background-color: #41b883;
-        color: #ffffff;
-        font-size: 16px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    textarea,
-    input,
-    select {
-        background-color: white;
-    }
 </style>
-
-</html>
+{% endblock %}
