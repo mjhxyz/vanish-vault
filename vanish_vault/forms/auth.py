@@ -6,7 +6,7 @@ from vanish_vault.models.user import User
 
 class LoginForm(Form):
     email = StringField(
-        validators=[DataRequired(message='电子邮件不能为空'), Length(6, 64), Email(message='电子邮箱不符合规范')])
+        validators=[DataRequired(message='电子邮件不能为空'), Length(6, 64, message='电子邮箱长度在6到64个字符'), Email(message='电子邮箱不符合规范')])
     password = PasswordField(
         validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间')])
 
@@ -18,7 +18,7 @@ class LoginForm(Form):
 
 class RegisterForm(Form):
     email = StringField(
-        validators=[DataRequired(message='电子邮件不能为空'), Length(6, 64), Email(message='电子邮箱不符合规范')])
+        validators=[DataRequired(message='电子邮件不能为空'), Length(6, 64, message='电子邮箱长度在6到64个字符'), Email(message='电子邮箱不符合规范')])
 
     password = PasswordField(
         validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间')])
