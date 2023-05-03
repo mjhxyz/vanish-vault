@@ -12,8 +12,6 @@
         <div class="nav">
             <div class="nav-logo">Vanish Vault</div>
             <div class="nav-btn-group">
-                <!-- <button class="nav-btn">登录</button>
-                <button class="nav-btn">注册</button> -->
             </div>
         </div>
         <div class="sub-nav">
@@ -22,6 +20,24 @@
                 <div class="sub-nav-tab-group">
                     <a class="sub-nav-tab" href="{{url_for('web.index_handler')}}">首页</a>
                     <a class="sub-nav-tab" target="_blank" href="https://github.com/mjhxyz/vanish-vault">Github</a>
+                    <a class="sub-nav-tab">|</a>
+                    {% if current_user.is_authenticated %}
+                    <div id="dropdown-btn" class="sub-nav-tab"
+                        style="padding: 4px; width: 45px; height:45px; position: relative">
+                        <img style="width: 100%; height: 100%"
+                            src="https://api.multiavatar.com/{{current_user.username}}.png" />
+
+                        <ul id="dropdown-menu">
+                            <li><a>个人资料</a></li>
+                            <li><a>我的信息</a></li>
+                            <li><a href="{{url_for('web.logout')}}">退出</a></li>
+                        </ul>
+
+                    </div>
+                    {% else %}
+                    <a class="sub-nav-tab" href="{{url_for('web.register')}}">注册{{current_user.username}}</a>
+                    <a class="sub-nav-tab" href="{{url_for('web.login')}}">登录</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -38,6 +54,35 @@
 
 <script>
     const $floatingAlert = document.querySelector(".floating-alert");
+
+    {% if current_user.is_authenticated %}
+    const $dropdownBtn = document.querySelector("#dropdown-btn");
+    const $dropdownMenu = document.querySelector("#dropdown-menu");
+    const $dropdownOptions = $dropdownMenu.querySelectorAll("li");
+
+
+    // 显示下拉菜单
+    $dropdownBtn.addEventListener("click", (event) => {
+        $dropdownMenu.style.display = "block";
+    });
+
+    // 其它地方隐藏
+    document.addEventListener("click", (event) => {
+        const isClickInside = $dropdownBtn.contains(event.target) || $dropdownMenu.contains(event.target);
+        if (!isClickInside) {
+            $dropdownMenu.style.display = "none";
+        }
+    });
+    // 点击下来菜单的选项也会隐藏
+    console.log($dropdownOptions)
+    $dropdownOptions.forEach((option) => {
+        option.addEventListener("click", (event) => {
+            $dropdownMenu.style.display = "none";
+            event.stopPropagation()
+        });
+    });
+    {% endif %}
+
 
     const $alert = (msg) => {
         $floatingAlert.innerText = msg;
@@ -75,6 +120,39 @@
 {% block script %}{% endblock %}
 
 <style>
+    #dropdown-menu {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 150px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        display: none;
+    }
+
+    #dropdown-menu li a {
+        font-size: 15px;
+        color: #333;
+        width: 100%;
+        display: flex;
+        padding: 8px 12px;
+        text-decoration: none;
+    }
+
+    #dropdown-menu li {
+        list-style: none;
+        cursor: pointer;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #dropdown-menu li:last-child {
+        border-bottom: none;
+    }
+
+    #dropdown-menu li:hover {
+        background-color: #ddd;
+    }
+
     * {
         box-sizing: border-box;
         padding: 0;

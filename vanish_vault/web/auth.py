@@ -1,10 +1,16 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from vanish_vault.web import web
 from vanish_vault.forms.auth import RegisterForm, LoginForm
 from vanish_vault.models.user import User
 from vanish_vault.models.base import db
+
+
+@web.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+    return redirect(url_for('web.index_handler'))
 
 
 @web.route('/register', methods=['GET', 'POST'])

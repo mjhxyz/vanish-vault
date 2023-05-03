@@ -6,7 +6,7 @@ from vanish_vault.models.user import User
 
 class LoginForm(Form):
     email = StringField(
-        validators=[DataRequired(), Length(6, 64), Email(message='电子邮箱不符合规范')])
+        validators=[DataRequired(message='电子邮件不能为空'), Length(6, 64), Email(message='电子邮箱不符合规范')])
     password = PasswordField(
         validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间')])
 
@@ -18,12 +18,16 @@ class LoginForm(Form):
 
 class RegisterForm(Form):
     email = StringField(
-        validators=[DataRequired(), Length(6, 64), Email(message='电子邮箱不符合规范')])
+        validators=[DataRequired(message='电子邮件不能为空'), Length(6, 64), Email(message='电子邮箱不符合规范')])
 
     password = PasswordField(
         validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间')])
+    repassword = PasswordField(
+        validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间'),
+                    EqualTo('password', message='两次输入的密码不相同')])
+
     username = StringField(
-        validators=[DataRequired(), Length(2, 10, message='昵称至少需要两个字符，最多10个字符')])
+        validators=[DataRequired(message='用户昵称不能为空'), Length(2, 10, message='昵称至少需要两个字符，最多10个字符')])
 
     def validate_email(self, field):
         # 邮箱地址保证唯一性
