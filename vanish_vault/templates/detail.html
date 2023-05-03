@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %} 消息内容 {% endblock %}
 {% block body%}
-<div class="result-container">
+<div class="center-container">
     {% if error %}
     <div class="error-content error">{{error}}</div>
     {% else %}
@@ -42,12 +42,6 @@
         height: 500px;
         border: 1px solid #eee;
         margin-top: 10px;
-    }
-
-    .result-container {
-        background-color: #fff;
-        padding: 20px;
-        flex: 1;
     }
 
     .result-input {

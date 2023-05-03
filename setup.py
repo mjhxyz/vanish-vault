@@ -15,6 +15,10 @@ setup(
         'Flask>=2.2.3',
         'PyCryptodome>=3.10',
         'redis>=4.5.4',
+        'Flask-SQLAlchemy>=3.0.3',
+        'cymysql>=0.9.18',
+        'WTForms>=3.0.1',
+        'email-validator>=2.0.0',
     ],
     entry_points={
     },

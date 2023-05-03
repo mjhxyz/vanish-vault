@@ -5,13 +5,6 @@
     {% if error %}
     <div class="error-content error">{{error}}</div>
     {% else %}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="error">
-    {{messages[0][1]}}
-    </div>
-    {% endif %}
-    {% endwith %}
     <div class="danger-area">
         <p>一旦被访问，内容将会立即销毁，无法恢复。</p>
         <p>如果你需要再次访问这些信息，请先将数据复制到另外一个安全的地方。</p>

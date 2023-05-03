@@ -1,0 +1,18 @@
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, SmallInteger
+
+
+db = SQLAlchemy()
+
+
+class Base(db.Model):
+    # 不会创建 base 表
+    __abstract__ = True
+    status = Column(SmallInteger, default=1, comment='状态 1:正常 0:已删除')
+
+    def set_attrs(self, attrs_dict):
+        # 接受字典参数, 用于批量赋值
+        # 从 wtforms 校验后 批量赋值
+        for key, value in attrs_dict.items():
+            if hasattr(self, key) and key != 'id':
+                setattr(self, key, value)
