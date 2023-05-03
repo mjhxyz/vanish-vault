@@ -1,1 +1,1 @@
-include vanish_vault/templates/**
+recursive-include vanish_vault/templates *
