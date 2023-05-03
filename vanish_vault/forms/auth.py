@@ -4,12 +4,24 @@ from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationE
 from vanish_vault.models.user import User
 
 
+class LoginForm(Form):
+    email = StringField(
+        validators=[DataRequired(), Length(6, 64), Email(message='电子邮箱不符合规范')])
+    password = PasswordField(
+        validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间')])
+
+    def validate_email(self, field):
+        # 验证电子邮箱是否存在
+        if not User.query.filter_by(email=field.data).first():
+            raise ValidationError('电子邮箱不存在')
+
+
 class RegisterForm(Form):
     email = StringField(
         validators=[DataRequired(), Length(6, 64), Email(message='电子邮箱不符合规范')])
 
     password = PasswordField(
-        validators=[DataRequired(message='密码不能为空'), Length(6, 32)])
+        validators=[DataRequired(message='密码不能为空'), Length(6, 32, message='密码长度至少需要6到32个字符之间')])
     username = StringField(
         validators=[DataRequired(), Length(2, 10, message='昵称至少需要两个字符，最多10个字符')])
 

@@ -1,7 +1,11 @@
 from flask import Flask
+from flask_login import LoginManager
 
 from vanish_vault.libs.redis_utils import rclient
 from vanish_vault.models.base import db
+
+
+login_manager = LoginManager()
 
 
 def create_app():
@@ -12,6 +16,13 @@ def create_app():
     register_blueprint(app)
     rclient.init_app(app)
 
+    # 注册登录插件
+    login_manager.init_app(app)
+    # 设置登录页面
+    login_manager.login_view = 'web.login'
+    login_manager.login_message = '请先登录或注册'
+
+    # 注册 SQLAlchemy
     db.init_app(app)
     with app.app_context():
         db.create_all()

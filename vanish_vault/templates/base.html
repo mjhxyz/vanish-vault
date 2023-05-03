@@ -56,7 +56,7 @@
     }
 
     // 处理 flask flash 的消息
-    {% with messages = get_flashed_messages(category_filter = ["error"]) %}
+    {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
     $alert('{{message}}');

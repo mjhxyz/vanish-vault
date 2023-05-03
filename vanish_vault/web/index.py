@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for, current_app
+from flask_login import login_required
 
 from vanish_vault.libs import utils
 from . import web

@@ -19,6 +19,7 @@ setup(
         'cymysql>=0.9.18',
         'WTForms>=3.0.1',
         'email-validator>=2.0.0',
+        'flask-login>=0.6.2',
     ],
     entry_points={
     },

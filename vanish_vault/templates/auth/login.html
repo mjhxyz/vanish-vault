@@ -1,18 +1,15 @@
 {% extends "base.html" %}
-{% block title %} 用户注册 {% endblock %}
+{% block title %} 用户登录 {% endblock %}
 {% block body%}
 <div class="center-container">
-    <div class="title">Vanish Vault | 注册</div>
-    <form class="register-form" action="{{url_for('web.register')}}" method="post">
-        <input name="username" class="mao-input" placeholder="请输入用户名"
-            value="{{ form.data['username'] | default('', true)}}" />
+    <div class="title">Vanish Vault | 登录</div>
+    <form class="register-form" action="{{url_for('web.login')}}" method="post">
         <input name="email" class="mao-input" placeholder="请输入邮箱" value="{{ form.data['email'] | default('',true) }}" />
         <input name="password" class="mao-input" type="password" placeholder="请输入密码" />
-        <input name="repassword" class="mao-input" type="password" placeholder="请再次密码" />
-        <button class="register-btn">注册</button>
+        <button class="register-btn">登录</button>
     </form>
     <div class="register-footer">
-        已有账号? <a href="{{url_for('web.login')}}">去登录</a>
+        还没有账号? <a href="{{url_for('web.register')}}">去注册</a>
     </div>
 </div>
 {% endblock %}
@@ -68,7 +65,7 @@
     }
 
     .center-container {
-        height: 500px;
+        height: 400px;
     }
 
     .title {
