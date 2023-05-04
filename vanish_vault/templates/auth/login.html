@@ -4,7 +4,7 @@
 <div class="center-container">
     <div class="title">Vanish Vault | 登录</div>
     <form class="register-form" action="{{url_for('web.login')}}" method="post">
-        <input name="email" class="mao-input" placeholder="请输入邮箱" value="{{ form.data['email'] | default('',true) }}" />
+        <input name="username" class="mao-input" placeholder="请输入用户名" value="{{ form.data['username'] | default('',true) }}" />
         <input name="password" class="mao-input" type="password" placeholder="请输入密码" />
         <button class="register-btn">登录</button>
     </form>
