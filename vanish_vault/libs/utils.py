@@ -4,10 +4,26 @@ from Crypto.Util.Padding import pad, unpad
 import base64
 import os
 import hashlib
+from datetime import datetime, timedelta
 
 from vanish_vault.libs.redis_utils import rclient
 
 mode = AES.MODE_CBC
+
+
+# 转换为剩余时间字符串
+def to_remaining_time(expire_at):
+    remaining_time = expire_at - datetime.now()
+    if remaining_time < timedelta(seconds=0):
+        return '已过期'
+    if remaining_time.days > 0:
+        return f'{remaining_time.days}天{remaining_time.seconds // 3600}小时{remaining_time.seconds // 60 % 60}分钟'
+    if remaining_time.seconds > 3600:
+        return f'{remaining_time.seconds // 3600}小时{remaining_time.seconds // 60 % 60}分钟'
+    if remaining_time.seconds > 60:
+        return f'{remaining_time.seconds // 60}分钟'
+    return f'{remaining_time.seconds}秒'
+    
 
 
 def encrypt(plaintext, key):

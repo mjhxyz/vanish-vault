@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, SmallInteger
 
@@ -9,6 +11,8 @@ class Base(db.Model):
     # 不会创建 base 表
     __abstract__ = True
     status = Column(SmallInteger, default=1, comment='状态 1:正常 0:已删除')
+    add_time = db.Column(db.DateTime, index=True, default=datetime.now, comment='添加时间')
+    update_time = db.Column(db.DateTime, index=True, default=datetime.now ,onupdate=datetime.now, comment='更新时间')
 
     def set_attrs(self, attrs_dict):
         # 接受字典参数, 用于批量赋值

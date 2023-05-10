@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %} 我的消息{% endblock %}
+{% block body%}
+<!-- 表格展示 messages -->
+
+<div class="center-container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>添加时间</th>
+                        <th>过期时间</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in messages %}
+                    <tr>
+                        <td>{{m.title}}</td>
+                        <td>{{m.add_time}}</td>
+                        <td>{{m.remaining }}</td>
+                        <td>
+                            <a href="">查看</a>
+                            <a href="">删除</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block script%}
+{% endblock %}
+{% block style%}
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        table-layout: fixed;
+    }
+
+    th,
+    td {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+{% endblock %}

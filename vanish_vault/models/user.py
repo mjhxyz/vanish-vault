@@ -6,7 +6,6 @@ from flask_login import UserMixin
 from vanish_vault.models.base import Base
 from vanish_vault import login_manager
 
-
 # UserMixin flask_login 插件使用一些默认的操作
 # 刚好是使用 id 来标记用户的
 class User(UserMixin, Base):
