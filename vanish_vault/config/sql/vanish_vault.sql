@@ -1,0 +1,1 @@
+CREATE DATABASE `vanish_vault` DEFAULT CHARACTER SET utf8mb4
