@@ -9,7 +9,7 @@
         {% endfor %}
     </select>
     <div class="content-bar-input">
-        <input id="key" placeholder="这里输入密码" class="mao-input content-bar-input-inner" />
+        <input id="secret_key" placeholder="这里输入密码" class="mao-input content-bar-input-inner" />
     </div>
     <button id="submit" class="btn">生成</button>
 </div>
@@ -20,7 +20,7 @@
 <script>
     (() => {
         const $content = document.getElementById('content');
-        const $key = document.getElementById('key');
+        const $secret_key = document.getElementById('secret_key');
         const $submit = document.getElementById('submit');
         const $validTime = document.getElementById('valid_time');
 
@@ -34,23 +34,23 @@
 
         $submit.addEventListener('click', (e) => {
             let content = $content.value;
-            let key = $key.value.trim();
-            if (!content || !key || !content.trim()) {
+            let secret_key = $secret_key.value.trim();
+            if (!content || !secret_key || !content.trim()) {
                 alert('请输入内容和密码');
                 return;
             }
             content = content.replace(/\n/g, '__BR__');
 
             const form = document.createElement('form');
-            form.action = '/share';
+            form.action = '{{ url_for("web.index_handler") }}';
             form.method = 'POST';
 
             const contentInput = createInput('content', content);
-            const keyInput = createInput('key', key);
+            const secretKeyInput = createInput('secret_key', secret_key);
             const validTimeInput = createInput('valid_time', $validTime.value);
 
             form.appendChild(contentInput);
-            form.appendChild(keyInput);
+            form.appendChild(secretKeyInput);
             form.appendChild(validTimeInput);
 
             document.body.appendChild(form);
