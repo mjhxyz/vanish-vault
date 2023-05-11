@@ -75,8 +75,11 @@ def is_id_exist(id):
 
 
 def is_key_exist(key):
-    record = Message.query.filter_by(key=key).first()
-    print('key=!!!!', key)
+    record = Message.query.filter_by(key=key, status=1).first()
+    if record and record.expire_at < datetime.now():
+        record.delete()
+        db.session.commit()
+        return False
     return record is not None
 
 
@@ -102,7 +105,7 @@ def get_decrypted_content2(id, key):
     if record is None:
         return None
     if record.expire_at < datetime.now():
-        db.session.delete(record)
+        record.delete()
         db.session.commit()
         return None
     try:
