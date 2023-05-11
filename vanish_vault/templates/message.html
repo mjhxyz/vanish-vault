@@ -22,7 +22,7 @@
                         <td>{{m.add_time}}</td>
                         <td>{{m.remaining }}</td>
                         <td>
-                            <a href="">查看</a>
+                            <a href="{{url_for('web.share_handler_get',key=m.key)}}" target="_blank">查看</a>
                             <a href="">删除</a>
                         </td>
                     </tr>

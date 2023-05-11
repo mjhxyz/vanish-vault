@@ -21,7 +21,7 @@ def detail_handler():
     content = utils.get_decrypted_content2(id, key)
     if not content:
         flash(f'消息【{id}】密码不正确!!', category='error')
-        return redirect(url_for('web.share_hanlder_get', id=id))
+        return redirect(url_for('web.share_handler_get', key=id))
     else:
         context = {'id': id, 'content': content}
         utils.delete_content(id)
@@ -30,7 +30,7 @@ def detail_handler():
 
 
 @web.get('/share/<key>')
-def share_hanlder_get(key):
+def share_handler_get(key):
     # TODO check id 是否存在
     context = {'id': key}
     if not utils.is_key_exist(key):

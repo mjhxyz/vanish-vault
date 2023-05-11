@@ -25,7 +25,6 @@ def to_remaining_time(expire_at):
     if remaining_time.seconds > 60:
         return f'{remaining_time.seconds // 60}分钟'
     return f'{remaining_time.seconds}秒'
-    
 
 
 def encrypt(plaintext, key):
@@ -74,10 +73,12 @@ def is_id_exist(id):
     client = rclient.get_redis()
     return client.exists(f'{prefix}{id}')
 
+
 def is_key_exist(key):
     record = Message.query.filter_by(key=key).first()
     print('key=!!!!', key)
     return record is not None
+
 
 def delete_content2(id):
     record = Message.query.filter_by(id=id).first()
@@ -87,12 +88,14 @@ def delete_content2(id):
     db.session.commit()
     return True
 
+
 def delete_content(id):
     from vanish_vault.libs.redis_utils import rclient
     app = rclient.app
     prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
     client = rclient.get_redis()
     return client.delete(f'{prefix}{id}')
+
 
 def get_decrypted_content2(id, key):
     record = Message.query.filter_by(key=id).first()
@@ -102,7 +105,11 @@ def get_decrypted_content2(id, key):
         db.session.delete(record)
         db.session.commit()
         return None
-    return decrypt(record.content, key)
+    try:
+        return decrypt(record.content, key)
+    except Exception:
+        return None
+
 
 def get_decrypted_content(id, key):
     from vanish_vault.libs.redis_utils import rclient
@@ -137,7 +144,8 @@ def save_content(content, key, expire=10 * 60):
 def save_content_using_mysql(content, key, user_id, expire=10 * 60):
     encrypted_content = encrypt(content, key)
     next_id = get_next_id()
-    message = Message(key=next_id, content=encrypted_content, expire_at=datetime.now() + timedelta(seconds=expire), title='消息x', user_id=user_id)
+    message = Message(key=next_id, content=encrypted_content, expire_at=datetime.now(
+    ) + timedelta(seconds=expire), title='消息x', user_id=user_id)
     db.session.add(message)
     db.session.commit()
     return next_id
