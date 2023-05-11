@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for, current_app
-from flask_login import login_required
+from flask_login import login_required, login_user, logout_user, current_user
 
 from vanish_vault.libs import utils
 from . import web
@@ -18,7 +18,7 @@ def detail_handler():
     # TODO form check
     id = request.form.get('id')
     key = request.form.get('key')
-    content = utils.get_decrypted_content(id, key)
+    content = utils.get_decrypted_content2(id, key)
     if not content:
         flash(f'消息【{id}】密码不正确!!', category='error')
         return redirect(url_for('web.share_hanlder_get', id=id))
@@ -29,11 +29,11 @@ def detail_handler():
     return render_template('detail.html', **context)
 
 
-@web.get('/share/<id>')
-def share_hanlder_get(id):
+@web.get('/share/<key>')
+def share_hanlder_get(key):
     # TODO check id 是否存在
-    context = {'id': id}
-    if not utils.is_id_exist(id):
+    context = {'id': key}
+    if not utils.is_key_exist(key):
         context['error'] = '消息不存在!!'
     return render_template('share_result.html', **context)
 
@@ -44,5 +44,10 @@ def share_handler():
     content = request.form.get('content')
     key = request.form.get('key')
     valid_time = request.form.get('valid_time')
-    next_id = utils.save_content(content, key, int(valid_time) * 60)
+    user = current_user
+    if not user or not user.is_authenticated:
+        user_id = 0
+    else:
+        user_id = user.id
+    next_id = utils.save_content_using_mysql(content, key, user_id, int(valid_time) * 60)
     return redirect(f'/share/{next_id}')
