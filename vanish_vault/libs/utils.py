@@ -84,7 +84,7 @@ def is_key_exist(key):
 
 
 def delete_content2(id):
-    record = Message.query.filter_by(id=id).first()
+    record = Message.query.filter_by(key=id).first()
     if record is None:
         return None
     db.session.delete(record)

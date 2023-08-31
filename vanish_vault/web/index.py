@@ -39,7 +39,7 @@ def detail_handler():
         return redirect(url_for('web.share_handler_get', key=id))
     else:
         context = {'id': id, 'content': content}
-        utils.delete_content(id)
+        utils.delete_content2(id)
 
     return render_template('detail.html', **context)
 
