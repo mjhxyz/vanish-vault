@@ -33,7 +33,7 @@ def detail_handler():
     # TODO form check
     id = request.form.get('id')
     key = request.form.get('key')
-    content = utils.get_decrypted_content2(id, key)
+    content = utils.get_decrypted_content(id, key)
     if not content:
         flash(f'消息【{id}】密码不正确!!', category='error')
         return redirect(url_for('web.share_handler_get', key=id))

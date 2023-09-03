@@ -100,7 +100,7 @@ def delete_content(id):
     return client.delete(f'{prefix}{id}')
 
 
-def get_decrypted_content2(id, key):
+def get_decrypted_content(id, key):
     record = Message.query.filter_by(key=id).first()
     if record is None:
         return None
@@ -111,20 +111,7 @@ def get_decrypted_content2(id, key):
     try:
         return decrypt(record.content, key)
     except Exception:
-        return None
 
-
-def get_decrypted_content(id, key):
-    from vanish_vault.libs.redis_utils import rclient
-    app = rclient.app
-    prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
-    client = rclient.get_redis()
-    encrypted_content = client.get(f'{prefix}{id}')
-    if not encrypted_content:
-        return None
-    try:
-        return decrypt(encrypted_content, key)
-    except Exception:
         return None
 
 
@@ -132,16 +119,6 @@ def get_next_id():
     from vanish_vault.libs.redis_utils import rclient
     redis_next_id = to_base62(rclient.get_next_id())
     return f'{redis_next_id}{random_str(2)}'
-
-
-def save_content(content, key, expire=10 * 60):
-    app = rclient.app
-    encrypted_content = encrypt(content, key)
-    prefix = app.config.setdefault('REDIS_PREFIX', 'vv_')
-    next_id = get_next_id()
-    client = rclient.get_redis()
-    client.setex(f'{prefix}{next_id}', expire, encrypted_content)
-    return next_id
 
 
 def save_content_using_mysql(content, key, user_id, expire=10 * 60):
